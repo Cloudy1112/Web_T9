@@ -102,9 +102,11 @@ span.psw {
 		</div>
 
 		<div class="container" style="background-color: #f1f1f1">
-			<button type="button" class="cancelbtn">Cancel</button>
+			<button type="button" class="cancelbtn" name= cancelbtn value= pressed>Cancel</button>
 			<span class="psw">Forgot <a href="#">password?</a></span>
 		</div>
+		
+		<button type="button" class="registerbtn" onclick="location.href='/Ltweb/register';">Register</button>
 	</form>
 </body>
 </html>

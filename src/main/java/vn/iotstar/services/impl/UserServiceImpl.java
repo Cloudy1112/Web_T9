@@ -14,7 +14,7 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
-	//so sanh tai khoan va nhap khau da nhap voi database
+	// so sanh tai khoan va nhap khau da nhap voi database
 	@Override
 	public UserModel login(String username, String password) {
 		UserModel user = this.findByUserName(username);
@@ -29,10 +29,28 @@ public class UserServiceImpl implements IUserService {
 		try {
 			IUserService userService = new UserServiceImpl();
 			System.out.println(userService.login("van", "123"));
-
+			System.out.println(userService.checkExistUsername("thu1"));
+			
+			UserModel user = new UserModel();
+			user.setUsername("tutu");
+			user.setPassword("321");
+			userService.insert(user);
+			
+			System.out.println(userService.checkExistUsername("tutu"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void insert(UserModel user) {
+		userdao.insert(user);
+	}
+
+	@Override
+	public boolean checkExistUsername(String username) {
+		// TODO Auto-generated method stub
+		return userdao.checkExistUsername(username);
 	}
 
 }

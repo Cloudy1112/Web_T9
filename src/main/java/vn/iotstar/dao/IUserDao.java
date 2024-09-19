@@ -7,5 +7,6 @@ public interface IUserDao {
 	//tầng DAO là tầg querry dữ liệu, nếu tìm thấy sẽ trả kết quả cho tầng service
 	
 	UserModel findByUserName(String username);
-	
+	boolean checkExistUsername(String username);
+	void insert (UserModel user);
 }
