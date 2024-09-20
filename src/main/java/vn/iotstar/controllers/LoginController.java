@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IUserService;
 import vn.iotstar.services.impl.UserServiceImpl;
+import vn.iotstar.utils.Constant;
 
 @WebServlet(urlPatterns = { "/login", "/dang-nhap" })
 public class LoginController extends HttpServlet {
@@ -100,12 +101,11 @@ public class LoginController extends HttpServlet {
 
 	}
 
-	public static final String SESSION_USERNAME = "username";
-	public static final String COOKIE_REMEMBER = "username";
+	
 
 	private void saveRememberMe(HttpServletResponse resp, String username) {
 
-		Cookie cookie = new Cookie(COOKIE_REMEMBER, username);
+		Cookie cookie = new Cookie(Constant.COOKIE_REMEMBER, username);
 		cookie.setMaxAge(60);
 		resp.addCookie(cookie);  
 	}
