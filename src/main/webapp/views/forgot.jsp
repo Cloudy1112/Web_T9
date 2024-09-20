@@ -31,6 +31,7 @@ button {
 	border: none;
 	cursor: pointer;
 	width: 100%;
+	justify-content: center;
 }
 
 /* Add a hover effect for buttons */
@@ -38,28 +39,10 @@ button:hover {
 	opacity: 0.8;
 }
 
-/* Extra style for the cancel button (red) */
-.cancelbtn {
-	width: auto;
-	padding: 10px 18px;
-	background-color: #f44336;
-}
-
-/* Center the avatar image inside this container */
-.imgcontainer {
-	text-align: center;
-	margin: 24px 0 12px 0;
-}
-
 /* Avatar image */
 img.avatar {
 	width: 40%;
 	border-radius: 50%;
-}
-
-/* Add padding to containers */
-.container {
-	padding: 16px;
 }
 
 /* The "Forgot password" text */
@@ -74,39 +57,28 @@ span.psw {
 		display: block;
 		float: none;
 	}
-	.cancelbtn {
-		width: 100%;
-	}
 }
 </style>
 </head>
 <body>
-	<form action="/Ltweb/login" method="post">
+	<form action="/Ltweb/forgot" method="post">
 		<c:if test="${alert !=null}">
-			<h3 class="alert alert danger">${alert}</h3>
+			<h3 class="alert alert danger">${alert} </h3>
 		</c:if>
-		<div class="imgcontainer">
-			<img src="img_avatar2.png" alt="Avatar" class="avatar">
-		</div>
-
-		<div class="container">
-			<label for="uname"><b>Username</b></label> <input type="text"
-				placeholder="Enter Username" name="username"> <label
-				for="psw"><b>Password</b></label> <input type="password"
-				placeholder="Enter Password" name="password">
-
-			<button type="submit">Login</button>
-			<label> <input type="checkbox" checked="checked"
-				name="remember"> Remember me
-			</label>
-		</div>
-
-		<div class="container" style="background-color: #f1f1f1">
-			<button type="button" class="cancelbtn" name= cancelbtn value= pressed>Cancel</button>
-			<span class="psw" >Forgot <a href='/Ltweb/forgot'>password?</a></span>
-		</div>
 		
-		<button type="button" class="registerbtn" onclick="location.href='/Ltweb/register';">Register</button>
+		<div class="container">
+			<h1>Reset password</h1>
+			<p>Please fill in this form to reset your password.</p>
+			<hr>
+			<label for="uname"><b>Username</b></label> <input type="text"
+				placeholder="Enter Username" name="username" required="required"> <label
+				for="psw"><b>Password</b></label> <input type="password"
+				placeholder="Enter Password" name="password" required="required">
+			<hr>
+
+		</div>
+		<button type="submit">Reset</button>
+		<button type="button" class="loginbtn" onclick="location.href='/Ltweb/login';">Login</button>
 	</form>
 </body>
 </html>

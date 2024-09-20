@@ -31,12 +31,19 @@ public class UserServiceImpl implements IUserService {
 			System.out.println(userService.login("van", "123"));
 			System.out.println(userService.checkExistUsername("thu1"));
 			
-			UserModel user = new UserModel();
-			user.setUsername("tutu");
-			user.setPassword("321");
-			userService.insert(user);
+			/*
+			 * UserModel user = new UserModel(); user.setUsername("tutu");
+			 * user.setPassword("321"); userService.insert(user);
+			 */
 			
 			System.out.println(userService.checkExistUsername("tutu"));
+			System.out.println(userService.checkExistUsername("van"));
+			
+			UserModel user = new UserModel(); user.setUsername("tutu");
+			user.setPassword("321");
+			
+			userService.reset_password(user);
+			System.out.println("sau khi reset "+userService.login("van", "123"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,6 +58,11 @@ public class UserServiceImpl implements IUserService {
 	public boolean checkExistUsername(String username) {
 		// TODO Auto-generated method stub
 		return userdao.checkExistUsername(username);
+	}
+
+	@Override
+	public void reset_password(UserModel user) {
+		userdao.reset_password(user);
 	}
 
 }

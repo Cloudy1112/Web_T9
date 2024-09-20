@@ -9,4 +9,5 @@ public interface IUserService {
 	UserModel login(String username, String password);
 	void insert(UserModel user);
 	boolean checkExistUsername(String username);
+	void reset_password(UserModel user);
 }

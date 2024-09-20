@@ -9,4 +9,5 @@ public interface IUserDao {
 	UserModel findByUserName(String username);
 	boolean checkExistUsername(String username);
 	void insert (UserModel user);
+	void reset_password(UserModel user);
 }
