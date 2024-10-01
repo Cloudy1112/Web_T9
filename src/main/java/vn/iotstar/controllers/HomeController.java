@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.iotstar.utils.Constant;
 
-@WebServlet(urlPatterns = { "/admin/home", "/manager/home", "/home" })
+@WebServlet(urlPatterns = { "/home", "/admin/home", "/manager/home" })
 public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -19,27 +19,28 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		
+
 		if (session != null && session.getAttribute("account") != null) {
 			String url = req.getRequestURL().toString();
 			String role = "";
 			if (url.contains("admin")) {
 				role = "admin";
 				req.setAttribute("role", role);
-				req.getRequestDispatcher("/views/home.jsp").forward(req, resp);
+				req.getRequestDispatcher("/views/admin/home.jsp").forward(req, resp);
 			} else if (url.contains("manager")) {
 				role = "manager";
 				req.setAttribute("role", role);
-				req.getRequestDispatcher("/views/home.jsp").forward(req, resp);
+				req.getRequestDispatcher("/views/manager/home.jsp").forward(req, resp);
 			} else {
 				req.setAttribute("role", role);
-				req.getRequestDispatcher("/views/home.jsp").forward(req, resp);
+				req.getRequestDispatcher("/views/user/home.jsp").forward(req, resp);
 			}
-		}else {
-			resp.sendRedirect(req.getContextPath()+"/login");
+		} else {
+			req.getRequestDispatcher("/views/home.jsp").forward(req, resp);
 		}
+
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
@@ -56,8 +57,7 @@ public class HomeController extends HttpServlet {
 			}
 		}
 
-		resp.sendRedirect(req.getContextPath()+"/login");
+		resp.sendRedirect(req.getContextPath() + "/login");
 	}
-	
-	
+
 }

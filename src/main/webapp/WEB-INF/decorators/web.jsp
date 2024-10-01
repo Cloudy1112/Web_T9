@@ -115,9 +115,6 @@ License: You must have a valid license purchased only from themeforest (the abov
 	<%@ include file="/commons/web/header.jsp"%>
 	<!-- Header end -->
 
-	<!-- Begin Slider -->
-	<%-- <%@ include file="/commons/web/slider.jsp"%> --%>
-	<!-- End Slider -->
 
 	<div class="main">
 		<div class="container">
