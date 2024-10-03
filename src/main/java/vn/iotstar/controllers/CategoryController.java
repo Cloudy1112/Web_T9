@@ -41,10 +41,10 @@ public class CategoryController extends HttpServlet {
 			req.setAttribute("listcate", list);
 			req.getRequestDispatcher("/views/admin/category-list.jsp").forward(req, resp);
 
-		} else if (url.contains("/admin/categories/delete")) {
+		} else if (url.contains("/admin/category/delete")) {
 			int id = Integer.parseInt(req.getParameter("id"));
 			cateService.delete(id);
-			resp.sendRedirect(req.getContentType() + "/admin/categories");
+			resp.sendRedirect(req.getContextPath() + "/admin/categories");
 
 		} else if (url.contains("/admin/category/edit")) {
 			int id = Integer.parseInt(req.getParameter("id"));
