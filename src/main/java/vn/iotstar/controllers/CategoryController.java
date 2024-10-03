@@ -21,7 +21,7 @@ import vn.iotstar.utils.Constant;
 		maxFileSize = 1024 * 1024 * 5, // 5MB
 		maxRequestSize = 1024 * 1024 * 5 * 5)
 @WebServlet(urlPatterns = { "/admin/categories", "/admin/category/add", "/admin/category/insert",
-		"/admin/categories/delete", "/admin/categories/update" })
+		"/admin/category/delete", "/admin/category/update", "/admin/category/edit" })
 public class CategoryController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -46,10 +46,10 @@ public class CategoryController extends HttpServlet {
 			cateService.delete(id);
 			resp.sendRedirect(req.getContentType() + "/admin/categories");
 
-		} else if (url.contains("/admin/edit")) {
+		} else if (url.contains("/admin/category/edit")) {
 			int id = Integer.parseInt(req.getParameter("id"));
 			CategoryModel category = cateService.findById(id);
-			req.setAttribute("listcate", category);
+			req.setAttribute("cate", category);
 			req.getRequestDispatcher("/views/admin/category-edit.jsp").forward(req, resp);
 		}
 	}
@@ -95,7 +95,7 @@ public class CategoryController extends HttpServlet {
 					// ghi ten file vao data
 					category.setImages(fname);
 
-				} else if (images== null || images.trim().isEmpty()) {
+				} else if (images == null || images.trim().isEmpty()) {
 					category.setImages("null.jpg");
 				} else {
 					category.setImages(images);
@@ -106,6 +106,62 @@ public class CategoryController extends HttpServlet {
 
 			// truyen model vao service
 			cateService.insert(category);
+
+			// redirect
+			resp.sendRedirect(req.getContextPath() + "/admin/categories");
+			
+			//Xu li UPDATE
+		} else if (url.contains("/update")) {
+			// lay du lieu tu view
+			String categoryname = req.getParameter("categoryname");
+			int status = Integer.parseInt(req.getParameter("status"));
+			String images = req.getParameter("images");
+			int id = Integer.parseInt(req.getParameter("categoryid"));
+			
+			// dua vao model
+			CategoryModel category = new CategoryModel();
+			category.setCategoryname(categoryname);
+			category.setStatus(status);
+			category.setCategoryid(id);
+			
+			//Luu hinh cu
+			CategoryModel cateOld = cateService.findById(id);
+			String fileOld = cateOld.getImages();
+			
+			// xu ly update image file
+			String fname = "";
+			String uploadPath = Constant.DIR;
+			File uploadDir = new File(uploadPath);
+			if (!uploadDir.exists()) {
+				uploadDir.mkdir();
+			}
+
+			try {
+				Part part = req.getPart("images_up");
+				if (part.getSize() > 0) {
+					String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+					// doi ten file neu co file trung
+					int index = filename.lastIndexOf(".");
+					String ext = filename.substring(index + 1);
+					fname = System.currentTimeMillis() + "." + ext;
+
+					// upload file
+					part.write(uploadPath + "/" + fname); // co the them nhieu thu muc con khac nhau
+
+					// ghi ten file vao data
+					category.setImages(fname);
+
+				} else if (images == null || images.trim().isEmpty()) {
+					category.setImages(fileOld);
+				} else {
+					category.setImages(images);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			// truyen model vao service _ UPDATE
+			cateService.update(category);
 
 			// redirect
 			resp.sendRedirect(req.getContextPath() + "/admin/categories");

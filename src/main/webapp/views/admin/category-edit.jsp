@@ -2,25 +2,30 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/commons/taglib.jsp" %>
 <body>
-	<form action="${pageContext.request.contextPath}/admin/category/insert" method="post">
-		<input type= "text" name="categoryid" hidden="hidden" value="${cate.categoryid }">
-		<label for="fname">Category name:</label><br> 
-		<input type="text"
-			id="categoryname" name="categoryname" value="${cate.categoryname }"><br> 
-			
-		<label for="lname">Link image:</label><br> 
-		<input type="text"
-			id="images" name="images1" value="${cate.images }"><br> 
-			
-		<label for="lname">Status:</label><br> 
-		<label for="css">Hoat dong:</label>
-		<input type="radio"
-			id="ston" name="status" value = "1" ${cate.status==1?'checked':'' }><br> 
-		<label for="javascript">Khoa:</label> 
-		<input type="radio"
-			id="stoff" name="status" value = "0" ${cate.status!=1?'checked':'' }> <br>
+	<form action="${pageContext.request.contextPath}/admin/category/update" method="post" enctype="multipart/form-data">
 		
-		<input type= "submit" value= "Insert">
+		<input type="text" id="categoryid" name="categoryid" value="${cate.categoryid}" hidden> 
+		<label for="categoryname">Category name:</label><br> 
+		<input type="text" id="categoryname" name="categoryname" value="${cate.categoryname}"><br> 
+			
+		<label for="images">Image:</label><br> 
+		<input type="text" id="images" name="images""><br> 
+		<c:if test="${cate.images.substring(0,5) != 'https'}">
+				<c:url value="/image?fname=${cate.images}" var="imgUrl"></c:url>
+			</c:if>
+
+			<c:if test="${cate.images.substring(0,5) == 'https'}">
+				<c:url value="${cate.images}" var="imgUrl"></c:url>
+			</c:if>
+		<img height="150" width="200" src="${imgUrl}" />
+		<input type="file" id="images_up" name="images_up" value ="${cate.images}"> <br>
+  			
+			
+			
+		<label for="status">Status:</label><br> 
+		<input type="text" id="status" name="status" value="${cate.status}"><br> 
+		<br>
+		
+		<input type= "submit" value= "Update">
 	</form>
 </body>
-</html>
