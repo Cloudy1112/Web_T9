@@ -23,8 +23,11 @@
 			
 			
 		<label for="status">Status:</label><br> 
-		<input type="text" id="status" name="status" value="${cate.status}"><br> 
-		<br>
+		<label for="hoatdong">Hoạt động:</label>
+		<input type="radio" id="ston" name="status" value = 1 ${cate.status==1?'checked':'' }><br> 
+		
+		<label for="khoa">Khoá:</label> 
+		<input type="radio" id="stoff" name="status" value = 0 ${cate.status==0?'checked':'' }> <br>
 		
 		<input type= "submit" value= "Update">
 	</form>
