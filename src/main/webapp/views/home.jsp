@@ -3,8 +3,6 @@
 <%@ include file="/commons/taglib.jsp"%>
 <c:url value="/" var="URL"></c:url>
 
-<%@ include file="/commons/web/header.jsp"%>
-
 <%@ include file="/commons/web/slider.jsp"%>
 
  <!-- BEGIN SALE PRODUCT & NEW ARRIVALS -->

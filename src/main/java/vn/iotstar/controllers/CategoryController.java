@@ -15,10 +15,13 @@ import jakarta.servlet.http.Part;
 import vn.iotstar.models.CategoryModel;
 import vn.iotstar.services.ICategoryService;
 import vn.iotstar.services.impl.CategoryServiceImpl;
+import vn.iotstar.utils.Constant;
 
-@MultipartConfig()
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, // 1MB
+		maxFileSize = 1024 * 1024 * 5, // 5MB
+		maxRequestSize = 1024 * 1024 * 5 * 5)
 @WebServlet(urlPatterns = { "/admin/categories", "/admin/category/add", "/admin/category/insert",
-							"/admin/categories/delete", "/admin/categories/update"})
+		"/admin/categories/delete", "/admin/categories/update" })
 public class CategoryController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -31,23 +34,23 @@ public class CategoryController extends HttpServlet {
 		String url = req.getRequestURI();
 
 		if (url.contains("/admin/category/add")) {
-			req.getRequestDispatcher("/commons/admin/category-add.jsp").forward(req, resp);
-		
+			req.getRequestDispatcher("/views/admin/category-add.jsp").forward(req, resp);
+
 		} else if (url.contains("/admin/categories")) {
 			List<CategoryModel> list = cateService.findAll();
 			req.setAttribute("listcate", list);
-			req.getRequestDispatcher("/commons/admin/category-list.jsp").forward(req, resp);
-		
+			req.getRequestDispatcher("/views/admin/category-list.jsp").forward(req, resp);
+
 		} else if (url.contains("/admin/categories/delete")) {
 			int id = Integer.parseInt(req.getParameter("id"));
 			cateService.delete(id);
-			resp.sendRedirect(req.getContentType()+"/admin/categories");
-		
+			resp.sendRedirect(req.getContentType() + "/admin/categories");
+
 		} else if (url.contains("/admin/edit")) {
 			int id = Integer.parseInt(req.getParameter("id"));
 			CategoryModel category = cateService.findById(id);
 			req.setAttribute("listcate", category);
-			req.getRequestDispatcher("/commons/admin/category-edit.jsp").forward(req, resp);
+			req.getRequestDispatcher("/views/admin/category-edit.jsp").forward(req, resp);
 		}
 	}
 
@@ -57,7 +60,8 @@ public class CategoryController extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		String url = req.getRequestURI();
 
-		if (url.contains("/admin/category/insert")) {
+		// insert sẽ chịu trách nhiệm up ảnh sản phẩm
+		if (url.contains("/insert")) {
 			// lay du lieu tu view
 			String categoryname = req.getParameter("categoryname");
 			int status = Integer.parseInt(req.getParameter("status"));
@@ -66,41 +70,40 @@ public class CategoryController extends HttpServlet {
 			// dua vao model
 			CategoryModel category = new CategoryModel();
 			category.setCategoryname(categoryname);
-			category.setImages(images);
 			category.setStatus(status);
 
 			// xu ly upload file
-			
 			String fname = "";
-			String uploadPath = "C://uploadWeb";
+			String uploadPath = Constant.DIR;
 			File uploadDir = new File(uploadPath);
 			if (!uploadDir.exists()) {
-					uploadDir.mkdir();
+				uploadDir.mkdir();
 			}
-			
-			
+
 			try {
-				Part part = req.getPart("image1");
-				if(part.getSize()>0) {
+				Part part = req.getPart("images_up");
+				if (part.getSize() > 0) {
 					String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-					//doi ten file
+					// doi ten file neu co file trung
 					int index = filename.lastIndexOf(".");
-					String ext = filename.substring(index+1);
+					String ext = filename.substring(index + 1);
 					fname = System.currentTimeMillis() + "." + ext;
-					
-					//upload file
-					part.write(uploadPath + "/" + fname); //co the them nhieu thu muc con khac nhau
-					
-					//ghi ten file vao data
+
+					// upload file
+					part.write(uploadPath + "/" + fname); // co the them nhieu thu muc con khac nhau
+
+					// ghi ten file vao data
 					category.setImages(fname);
-				} else if (images!= null) {
-					category.setImages(images);
+
+				} else if (images== null || images.trim().isEmpty()) {
+					category.setImages("null.jpg");
 				} else {
-					category.setImages("avatar.png");
+					category.setImages(images);
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
+
 			// truyen model vao service
 			cateService.insert(category);
 

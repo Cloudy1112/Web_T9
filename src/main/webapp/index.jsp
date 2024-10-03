@@ -2,3 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <c:redirect url= "/home"></c:redirect>
+<c:redirect url= "/admin/home"></c:redirect>
+<c:redirect url= "/manager/home"></c:redirect>
+<c:redirect url= "/user/home"></c:redirect>

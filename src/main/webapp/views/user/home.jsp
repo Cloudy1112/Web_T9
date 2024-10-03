@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
+<%@ include file="/commons/taglib.jsp"%>
+<c:url value="/" var="URL"></c:url>
+
+<%@ include file="/commons/web/slider.jsp"%>
+
 <!-- BEGIN SALE PRODUCT & NEW ARRIVALS -->
 <div class="row margin-bottom-40">
 	<!-- BEGIN SALE PRODUCT -->

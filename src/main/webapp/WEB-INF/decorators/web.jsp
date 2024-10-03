@@ -131,9 +131,9 @@ License: You must have a valid license purchased only from themeforest (the abov
 	<%@ include file="/commons/web/steps.jsp"%>
 	<!-- END STEPS -->
 
-	<!-- Begin Footer -->
+<!-- Begin Footer -->
 	<%@ include file="/commons/web/footer.jsp"%>
-	<!-- End Footer -->
+	<!-- End Footer --> 
 
 	<!-- BEGIN fast view of a product -->
 	<div id="product-pop-up" style="display: none; width: 700px;">

@@ -2,22 +2,22 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/commons/taglib.jsp" %>
 <body>
-	<form action="${pageContext.request.contextPath}/admin/category/insert" method="post">
-		<label for="fname">Category name:</label><br> 
-		<input type="text"
-			id="categoryname" name="categoryname"><br> 
+	<form action="${pageContext.request.contextPath}/admin/category/insert" method="post" enctype="multipart/form-data">
+		<label for="categoryname">Category name:</label><br> 
+		<input type="text" id="categoryname" name="categoryname"><br> 
 			
-		<label for="lname">Link image:</label><br> 
-		<input type="text"
-			id="images" name="images"><br> 
+		<label for="images">Link image:</label><br> 
+		<input type="text" id="images" name="images"><br> 
+		
+		<input type="file" id="images_up" name="images_up"> <br>
+  			
 			
-		<label for="lname">Status:</label><br> 
-		<label for="css">Hoat dong:</label>
-		<input type="radio"
-			id="ston" name="status" value = 1><br> 
-		<label for="javascript">Khoa:</label> 
-		<input type="radio"
-			id="stoff" name="status" value = 0> <br>
+		<label for="status">Status:</label><br> 
+		<label for="hoatdong">Hoạt động:</label>
+		<input type="radio" id="ston" name="status" value = 1><br> 
+		
+		<label for="khoa">Khoá:</label> 
+		<input type="radio" id="stoff" name="status" value = 0> <br>
 		
 		<input type= "submit" value= "Insert">
 	</form>
