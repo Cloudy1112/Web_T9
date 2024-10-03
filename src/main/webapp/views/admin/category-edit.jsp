@@ -17,8 +17,8 @@
 			<c:if test="${cate.images.substring(0,5) == 'https'}">
 				<c:url value="${cate.images}" var="imgUrl"></c:url>
 			</c:if>
-		<img height="150" width="200" src="${imgUrl}" />
-		<input type="file" id="images_up" name="images_up" value ="${cate.images}"> <br>
+		<img id="imagess" height="150" width="200" src="${imgUrl}" />
+		<input type="file" onchange="chooseFile(this)" id="images_up" name="images_up" value ="${cate.images}"> <br>
   			
 			
 			

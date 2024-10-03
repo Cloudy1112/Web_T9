@@ -9,7 +9,8 @@
 		<label for="images">Link image:</label><br> 
 		<input type="text" id="images" name="images"><br> 
 		
-		<input type="file" id="images_up" name="images_up"> <br>
+		<img id="imagess" src="" width="150px" height="150px" />
+		<input type="file" onchange="chooseFile(this)" id="images_up" name="images_up"> <br>
   			
 			
 		<label for="status">Status:</label><br> 
